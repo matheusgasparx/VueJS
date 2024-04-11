@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <style>
+        .azul {
+            background-color: blue
+        }
+
+        .negrito {
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+      
+    <div id="app">
+        <!-- <div>
+            {{ mensagem }} <br>
+            {{ somar() }} <br>
+            {{ subtrair() }} <br>
+            {{ multiplicar() }} <br>
+            {{ dividir() }} <br>
+        </div> -->
+
+        <!-- <div>
+            <a v-bind:href="site"> Site </a>
+            <p :class="cor" class="negrito"> v-bind </p>
+            <input type="text" :placeholder="instrucao" :value="valor">
+            <input type="checkbox" :checked="check">
+        </div> -->
+        {{ 2 + 2 }}
+        <input :value="2 + 2" :class="teste ? 'azul' : estilo">
+    </div>
+    
+    <script>
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                mensagem: 'Expression',
+                estilo: 'pink',
+                teste: true 
+                // site: 'https://github.com/matheusgasparx',
+                // cor: 'azul',
+                // instrucao: 'escreva',
+                // valor:'já escrevi',
+                // check: true
+
+                // mensagem: 'pega',
+                // n1: 10,
+                // n2: 5 
+            },
+            methods: {
+                // somar: function somar() {
+                //     return this.n1 + this.n2
+                // },
+                // subtrair: function() {
+                //     return this.n1 - this.n2 
+                // },
+                // multiplicar: () => {
+                //     return 5 * 5
+                // },
+                // dividir() {
+                //     return this.n1 / this.n2
+                // }
+            }
+        })
+
+    </script>
+</body>
+</html>
