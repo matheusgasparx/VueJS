@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue 2 and 3</title>
+    <style></style>
+  </head>
+  <body>
+    <div id="app">
+        <h4>Adicionar pacientes</h4>
+        <span>Nome: <span><input type="text" id="inputNome"></span></span><br>
+        <span>Idade: <span><input type="text" id="inputIdade"></span></span><br>
+        <span>Plano: <span><input type="text" id="inputPlano"></span></span><br>
+        <button @click="adicionarPaciente()" >Adicionar</button>
+        <hr>
+
+        <h4>Último paciente adicionado</h4>
+        <p v-if="pacientes.length > 0">
+            {{ ultimoPaciente }}
+        </p>
+        <hr>
+
+        <h4>Pacientes do plano Ouro</h4>
+        <p v-for="p in planoOuro">{{ p.nome }} </p>
+        <hr>
+
+        <h4>Pacientes já cadastrados</h4>
+        <p v-for="p in pacientes">{{ p.nome }}</p>
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+            pacientes: []
+        },
+        methods: {
+            adicionarPaciente() {
+                this.pacientes.push({
+                    nome: inputNome.value,
+                    idade: inputIdade.value,
+                    plano: inputPlano.value
+                })
+            }
+        },
+        computed: {
+            ultimoPaciente() {
+                let key = this.pacientes.length - 1
+                let txt = ''
+
+                txt += 'Paciente: ' + this.pacientes[key].nome
+                txt += ', idade: ' + this.pacientes[key].idade
+                txt += ', plano: ' + this.pacientes[key].plano
+
+                return txt
+            },
+            planoOuro() {
+                return this.pacientes.filter(item => item.plano == 'ouro')
+            }
+        }
+      });
+    </script>
+  </body>
+</html>

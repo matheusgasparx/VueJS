@@ -9,42 +9,104 @@
   </head>
   <body>
     <div id="app">
-        <ul>
-            <li v-for="(curso, key) in cursos" v-text="key +' - '+ curso" ></li>
-        </ul>
-        <hr>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Titulo</th>
-                    <th>Descrição</th>
-                </tr>
-            </thead>
-            <tbody v-for="({titulo, descricao}, key) in cursos2 ">
-                <td>{{ key }} </td>
-                <td>{{ titulo }} </td>
-                <td>{{ descricao }} </td>
-            </tbody>
-        </table>
+      
+      <ul>
+        <li v-for="c in comentarios">{{ c.id }} {{ c.comentario }}</li>
+      </ul>
+      <button @click="adicionarComentario()" >Adicionar</button>
+      <button @click="removerComentario()" v-bind:disabled="comentarios == 0" >Remover</button>
+      <button @click="modificarComentario()" >Modificar</button>
+      <hr>
+      <ul>
+        <li v-for="n in numeros">{{ n }}</li>
+      </ul>
+      <ul>
+        <li v-for="(curso, key) in cursos" v-text="key +' - '+ curso"></li>
+      </ul>
+      <hr />
+      <table border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Titulo</th>
+            <th>Descrição</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="({titulo, descricao}, key) in cursos2 ">
+            <td>{{ key }}</td>
+            <td>{{ titulo }}</td>
+            <td>{{ descricao }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <ul>
+        <li
+          v-for="p in publicacoes"
+          style="border: solid 1px; margin-bottom: 10px; padding: 10px;"
+          :key="p.id"
+        >
+          <div>
+            {{ p.publicacao }}
+            <hr />
+            <input type="text" />
+          </div>
+        </li>
+      </ul>
+      <button @click="misturarArray()">Misturar Array</button>
     </div>
     <script>
       const vm = new Vue({
         el: "#app",
         data: {
-            cursos: ['JavaScript', 'Java', 'Golang', 'TypeScript', 'Ruby'],
-            cursos2: {
-                1000: { 
-                    titulo: 'JavaScript', 
-                    descricao: 'O melhor framework'
-                },
-                1001: {
-                    titulo: 'Golang',
-                    descricao: 'Proxima lang'
-                }
-            }
+          comentarios: [
+            { id: 1, comentario: 'comentario 1'},
+            { id: 2, comentario: 'comentario 2'},
+            { id: 3, comentario: 'comentario 3'}
+          ],
+          numeros: 5,
+          cursos: ["JavaScript", "Java", "Golang", "TypeScript", "Ruby"],
+          cursos2: {
+            1000: {
+              titulo: "JavaScript",
+              descricao: "O melhor framework",
+            },
+            1001: {
+              titulo: "Golang",
+              descricao: "Proxima lang",
+            },
+          },
+          publicacoes: [
+            { id: 1, publicacao: "Publicação 1" },
+            { id: 2, publicacao: "Publicação 2" },
+            { id: 3, publicacao: "Publicação 3" },
+          ],
         },
-        methods: {} 
+        methods: {
+          misturarArray() {
+            let misturado = []
+
+            misturado[0] = this.publicacoes[2]
+            misturado[1] = this.publicacoes[0]
+            misturado[2] = this.publicacoes[1]
+
+            this.publicacoes = misturado
+          },
+          adicionarComentario() {
+            this.comentarios.push({ id: 4, comentario: 'Novo comentario'})
+          },
+          removerComentario() {
+            this.comentarios.pop()
+          },
+          modificarComentario() {
+            this.$set(
+              this.comentarios,
+              1,
+              { id: 2, comentario: 'Novo comentário'}
+            )
+          }
+        },
       });
     </script>
   </body>
