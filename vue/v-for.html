@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue 2 and 3</title>
+    <style></style>
+  </head>
+  <body>
+    <div id="app">
+        <ul>
+            <li v-for="(curso, key) in cursos" v-text="key +' - '+ curso" ></li>
+        </ul>
+        <hr>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody v-for="({titulo, descricao}, key) in cursos2 ">
+                <td>{{ key }} </td>
+                <td>{{ titulo }} </td>
+                <td>{{ descricao }} </td>
+            </tbody>
+        </table>
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+            cursos: ['JavaScript', 'Java', 'Golang', 'TypeScript', 'Ruby'],
+            cursos2: {
+                1000: { 
+                    titulo: 'JavaScript', 
+                    descricao: 'O melhor framework'
+                },
+                1001: {
+                    titulo: 'Golang',
+                    descricao: 'Proxima lang'
+                }
+            }
+        },
+        methods: {} 
+      });
+    </script>
+  </body>
+</html>
