@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue 2 and 3</title>
+    <style></style>
+  </head>
+  <body>
+    <div id="app">
+        <div v-html="innerHTML" >Texto de <b>exemplo</b></div>
+        <div v-text="innerHTML" >Texto de exemplo</div>
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+            innerHTML: '<p>meu github: <b></p><a href="https://github.com/matheusgasparx" target="_blank" >gaspar</a></b>'
+        },
+        methods: {} 
+      });
+    </script>
+  </body>
+</html>

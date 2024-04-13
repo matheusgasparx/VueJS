@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue 2 and 3</title>
+    <style>
+      .azul {
+        background-color: blue;
+      }
+
+      .branco {
+        background-color: goldenrod;
+      }
+
+      .red {
+        background-color: crimson;
+      }
+
+      .pink {
+        background-color: lightpink;
+      }
+
+      .negrito {
+        font-weight: bold;
+      }
+
+      .borda {
+        border: 1px solid;
+      }
+
+      .div-principal {
+        width: 200px;
+        height: 200px;
+      }
+
+      .div-comum {
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+        margin: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <div>
+            {{ mensagem }} <br>
+            {{ somar() }} <br>
+            {{ subtrair() }} <br>
+            {{ multiplicar() }} <br>
+            {{ dividir() }} <br>
+        </div> -->
+
+      <!-- <div>
+            <a v-bind:href="site"> Site </a>
+            <p :class="cor" class="negrito"> v-bind </p>
+            <input type="text" :placeholder="instrucao" :value="valor">
+            <input type="checkbox" :checked="check">
+        </div> -->
+
+      <!-- <div>
+            {{ 2 + 2 }}
+            <input :value="2 + 2" :class="teste ? 'azul' : estilo">
+        </div> -->
+
+      <div class="borda div-principal" :class="cor">
+        Cor agora: {{ cor }}..............
+        Position X do mouse: {{ posicaoX }}
+        Position Y do mouse: {{ posicaoY }}
+    </div>
+      <hr />
+      <div @click="mudarCor('azul')" class="borda div-comum"></div>
+      <div
+        @mouseover="mudarCor('red')"
+        @mouseout="mudarCor('pink')"
+        class="borda div-comum"
+      ></div>
+      <div @mousemove="coordenadas($event)" class="borda div-comum"></div>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          cor: "branco",
+          posicaoX: 0,
+          posicaoY: 0
+
+          // mensagem: 'Expression',
+          // estilo: 'pink',
+          // teste: true
+
+          // site: 'https://github.com/matheusgasparx',
+          // cor: 'azul',
+          // instrucao: 'escreva',
+          // valor:'já escrevi',
+          // check: true
+
+          // mensagem: 'pega',
+          // n1: 10,
+          // n2: 5
+        },
+        methods: {
+          mudarCor(c) {
+            this.cor = c;
+          },
+          coordenadas(e) {
+            this.posicaoX = e.clientX
+            this.posicaoY = e.clientY
+          }
+
+          // somar: function somar() {
+          //     return this.n1 + this.n2
+          // },
+          // subtrair: function() {
+          //     return this.n1 - this.n2
+          // },
+          // multiplicar: () => {
+          //     return 5 * 5
+          // },
+          // dividir() {
+          //     return this.n1 / this.n2
+          // }
+        },
+      });
+    </script>
+  </body>
+</html>

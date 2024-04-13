@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue 2 and 3</title>
+    <style></style>
+  </head>
+  <body>
+    <div id="app">
+      <a
+        href="https://github.com/matheusgasparx"
+        target="_blank"
+        @click.prevent="prevenirComportamentoPadrao()"
+        >Link
+        </a>
+        <br>
+        Mensagem: {{ msg }}
+        <hr>
+        <button @click.once="executarUmaVez()">Botão</button>
+        <p>Cliques: {{ cliques }}</p>
+        <hr>
+        <form @submit.prevent.once="prevenirUmaVez()">
+            <button type="submit">Enviar</button>
+        </form>
+        <p>Formulario: {{ formulario }}</p>
+        <hr>
+        <input type="text" @keyup.Shift.Enter="capturandoTeclas($event)">
+        <p>Teclas: {{ teclas }}</p>
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+            msg: '',
+            cliques: 0,
+            formulario: '',
+            teclas: ''
+        },
+        methods: {
+            prevenirComportamentoPadrao() {
+                this.msg = 'Comportamento padrão ativado'
+            },
+            executarUmaVez() {
+                this.cliques++
+            },
+            prevenirUmaVez() {
+                this.formulario = 'Prevenindo o comportamento padrão'
+            },
+            capturandoTeclas(event) {
+                this.teclas = 'Modificadores encadados com sucesso!'
+            }
+        },
+      });
+    </script>
+  </body>
+</html>
