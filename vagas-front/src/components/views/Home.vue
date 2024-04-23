@@ -28,6 +28,7 @@
           color="text-white"
         ></Indicador>
       </div>
+
       <div class="col-4">
         <Indicador
           titulo="Profissionais Cadastrados"
@@ -36,6 +37,7 @@
           color="text-white"
         ></Indicador>
       </div>
+      
       <div class="col-4">
         <Indicador
           titulo="Visitantes Online"

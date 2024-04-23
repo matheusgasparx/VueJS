@@ -10,7 +10,7 @@
       <div class="col">
         <label class="form-label">Titulo da vaga</label>
         <input type="text" class="form-control" v-model="titulo" />
-        <div class="form-text">Programador Javascript e Vue</div>
+        <div class="form-text">Sugestão: Programador JavaScript TypeScript</div>
       </div>
     </div>
 
