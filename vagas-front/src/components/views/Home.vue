@@ -8,8 +8,7 @@
 
     <div class="row mt-5" v-for="(vaga, index) in vagas" :key="index">
       <div class="col">
-        <Vaga v-bind="vaga"
-        ></Vaga>
+        <Vaga v-bind="vaga"></Vaga>
         <!-- :titulo="vaga.titulo"
         :descricao="vaga.descricao"
         :salario="vaga.salario"
@@ -37,7 +36,7 @@
           color="text-white"
         ></Indicador>
       </div>
-      
+
       <div class="col-4">
         <Indicador
           titulo="Visitantes Online"
@@ -60,25 +59,33 @@ export default {
   components: {
     PesquisarVaga,
     Indicador,
-    Vaga
+    Vaga,
   },
   data: () => ({
     usuariosOnline: 0,
-    vagas: []
+    vagas: [],
   }),
   methods: {
     getUsuariosOnline() {
-      this.usuariosOnline = Math.floor(Math.random() * 101)
-    }
+      this.usuariosOnline = Math.floor(Math.random() * 101);
+    },
   },
 
   created() {
-    setInterval(this.getUsuariosOnline, 3000)
+    setInterval(this.getUsuariosOnline, 3000);
   },
- // mounted() { // transforma a String em array de Objetos
   activated() {
-    this.vagas = JSON.parse(localStorage.getItem('vagas'))
-  }
+    this.vagas = JSON.parse(localStorage.getItem("vagas"));
+  },
+  mounted() {
+    // transforma a String em array de Objetos
+    this.emitter.on("filtrarVagas", (vaga) => {
+      const vagas = JSON.parse(localStorage.getItem("vagas"));
+      this.vagas = vagas.filter((reg) =>
+        reg.titulo.toLowerCase().includes(vaga.titulo.toLowerCase())
+      ); // cria um array com todos os elementos
+    });
+  },
 };
 </script>
   
