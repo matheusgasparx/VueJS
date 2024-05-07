@@ -24,10 +24,10 @@
             <router-link class="list-group-item list-group-item-action" to="/home/vendas/leads" exact-active-class="active">
                 <i class="bi bi-caret-right"></i> Leads
             </router-link>
-            <router-link class="list-group-item list-group-item-action" to="/home/vendas/contratos" exact-active-class="active">
+            <router-link class="list-group-item list-group-item-action" :to="{ name: 'contratos' }" exact-active-class="active">
                 <i class="bi bi-caret-right"></i> Contratos
             </router-link>
-            <router-link class="list-group-item list-group-item-action" to="/home/servicos" exact-active-class="active">
+            <router-link class="list-group-item list-group-item-action" :to="{ name: 'servicos' }" exact-active-class="active">
                 <i class="bi bi-card-checklist"></i> Serviços
             </router-link>
           </div>
@@ -44,6 +44,10 @@
               </div>
 
           </div>
+      </div>
+
+      <div class="rodape">
+        <router-view name="rodape"></router-view>
       </div>
   </div>
 </template>
@@ -68,6 +72,15 @@ export default {
     border-top: none;
     border-right: none;
 }
+
+.rodape {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #ccc;
+}
+
 /* 
  .ativo {
     color: #fff;
