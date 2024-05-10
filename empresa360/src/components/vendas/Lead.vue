@@ -40,9 +40,15 @@ import ApiMixin from "../mixins/ApiMixin";
 
 export default {
   name: "Lead",
+  props: ['id','outroParametro'],
   mixins: [ApiMixin],
   created() {
-    this.getDadosApi(`http://localhost:3000/leads/${this.$route.params.id}`);
+    this.getDadosApi(`http://localhost:3000/leads/${this.id}`);
+  },
+  beforeRouteLeave() { // to, from, next
+    const confirmar = window.confirm('Não saia antes de confirmar')
+
+    confirmar ? true : false
   }
 };
 </script>

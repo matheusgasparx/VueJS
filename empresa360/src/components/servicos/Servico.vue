@@ -11,9 +11,10 @@
   import ApiMixin from "../mixins/ApiMixin"
   
   export default {
-    name: "Lead",
+    name: "Servico",
     mixins: [ApiMixin],
     created() {
+      // console.log('Servico', this.$route.params.id)
       this.getDadosApi(`http://localhost:3000/servicos/${this.$route.params.id}`)
     },
     // watch: {                         // metodo 1

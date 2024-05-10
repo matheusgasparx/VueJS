@@ -20,7 +20,7 @@
             <!-- <router-link :to="`/home/vendas/leads/${d.id}`" class="btn btn-sm btn-primary">
               <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
             </router-link> -->
-            <router-link :to="{ name: 'lead', params: { id: d.id } }" class="btn btn-sm btn-primary">
+            <router-link :to="{ name: 'lead', params: { id: d.id, outroParametro: `teste_${d.id}` } }" class="btn btn-sm btn-primary">
               <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
             </router-link>
           </td>
@@ -38,6 +38,12 @@ export default {
   mixins: [ApiMixin],
   created() {
     this.getDadosApi('http://localhost:3000/leads'); // chama o método getDadosApi() ao criar o componente
+  },
+  beforeRouteEnter() { // to, from, next
+    console.log('Guarda de componente beforeRouteEnter')
+  },
+  beforeRouteLeave() { // to, from, next
+    console.log('Guarda de componente beforeRouteLeave')
   }
 };
 </script>
