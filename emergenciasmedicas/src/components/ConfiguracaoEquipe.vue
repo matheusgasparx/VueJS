@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col">
-        <h5><i class="bi-boxes me-2"></i>{{ tituloCustomizadoLocal }}</h5>
+        <h5 :class="corTitulo"><i class="bi-boxes me-2"></i>{{ tituloCustomizadoLocal }}</h5>
       </div>
     </div>
     <div class="row">
@@ -51,7 +51,8 @@ export default {
       }
     }
     */
-   computed: mapState({            // *** metodo 3
+   computed: {
+    ...mapState({            // *** metodo 3
       enfermeiro: state => state.equipe.enfermeiro,
       socorrista: state => state.equipe.socorrista,
       medico: state => state.equipe.medico,
@@ -61,7 +62,15 @@ export default {
       tituloCustomizadoLocal(state){
         return `${this.titulo} -> ${state.equipe.carro}`
       }
-   })
+   }),
+   corTitulo() {
+    let testeLogico = true
+    if(testeLogico) {
+      return 'text-danger'
+    }
+      return 'text-primary'
+   }
+  }
 }
 
 </script>
