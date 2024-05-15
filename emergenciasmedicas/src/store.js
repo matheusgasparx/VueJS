@@ -4,30 +4,33 @@ export default new Vuex.Store({
     state: {
         titulo: '## Emergências Medicas ##',
         equipe: {
-            enfermeiro: 'Marcos enfermeiro',
-            socorrista: 'Marcia socorrista',
-            medico: 'Cariani medico',
-            carro: 'a688q85',
-            telefone: '+55 4002 8922',
-            kitDeReanimacao: 'Kit Disgraça'
+            enfermeiro: '',
+            socorrista: '',
+            medico: '',
+            carro: '',
+            telefone: '',
+            kitDeReanimacao: ''
         },
         enfermeiros: [
             { id: 1, nome: 'João', escala: '12x36'},
             { id: 2, nome: 'Maria', escala: '12x36'},
             { id: 3, nome: 'Ana', escala: '24x48'},
-            { id: 4, nome: 'José', escala: '24x48'}
+            { id: 5, nome: 'José', escala: '24x48'}
         ],
         socorristas: [
             { id: 1, nome: 'Marcos', turno: 'manhã'},
-            { id: 2, nome: 'Felipe', turno: 'tarde'},
+            { id: 2, nome: 'Felipe', turno: 'manhã'},
             { id: 3, nome: 'Cláudia', turno: 'tarde'},
-            { id: 4, nome: 'Michele', turno: 'noite'}
+            { id: 4, nome: 'Michele', turno: 'noite'},
+            { id: 5, nome: 'Marcela', turno: 'noite'},
+            { id: 6, nome: 'Astrogildo', turno: 'noite'}
         ],
         medicos: [
             { id: 1, nome: 'André', escala: '12x36'},
             { id: 2, nome: 'Roberta', escala: '12x36'},
             { id: 3, nome: 'Carlos', escala: '24x48'},
-            { id: 4, nome: 'Juliana', escala: '24x48'}
+            { id: 4, nome: 'Juliana', escala: '24x48'},            
+            { id: 5, nome: 'Italo', escala: '24x48'}
         ],
         equipamentos: {
             carros: [
@@ -49,5 +52,32 @@ export default new Vuex.Store({
                 { id: 4, kit: 'K0004' }
             ]
         }
-    }
+    },
+    getters: {
+        totalEnfermeiros(state) {
+            return state.enfermeiros.length
+        },
+        socorristasPorTurno(state) {    //closure
+            return turno => !turno ? state.socorristas : state.socorristas.filter(s => s.turno === turno)
+        },
+        
+        totalSocorristas: state => state.socorristas.length,
+        totalSocorristasPorTurno: (state, getters) => turno => getters.socorristasPorTurno(turno).length
+        
+        // totalMedicos: state =>  state.medicos.length
+    },
+    mutations: {
+        setItemEquipe: (state, item) => { // lançado no commit no Item.vue
+            let t = item.tipo
+            let d = item.dados
+
+            if(t == 'enfermeiros') state.equipe.enfermeiro = d.nome
+            if(t == 'socorristas') state.equipe.socorrista = d.nome
+            if(t == 'medicos') state.equipe.medico = d.nome
+
+            if(t == 'carros') state.equipe.carro = d.placa
+            if(t == 'telefones') state.equipe.telefone = d.telefone
+            if(t == 'kits-de-reanimacao') state.equipe.kitDeReanimacao = d.kit
+        }
+    } 
 })
