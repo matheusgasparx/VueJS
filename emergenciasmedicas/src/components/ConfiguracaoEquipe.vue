@@ -19,13 +19,19 @@
           <div class="col">
             <img
               class="img-fluid"
-              :src="require('@/assets/ambulancias/indefinida.png')"
+              :src="require(`@/assets/ambulancias/${imgAmbulancia}`)"
             />
           </div>
         </div>
         <div class="row mt-3">
           <div class="col">
-            <button type="button" class="btn btn-primary">Montar equipe</button>
+            <button 
+            type="button" 
+            class="btn btn-primary"
+            @click="montarEquipe"
+            >
+            Montar equipe
+          </button>
           </div>
         </div>
       </div>
@@ -69,7 +75,24 @@ export default {
       return 'text-danger'
     }
       return 'text-primary'
+   },
+   imgAmbulancia(){
+    if(this.kitDeReanimacao) {
+      return 'uti.png'
+    }
+    if(this.carro){
+      return 'simples.png'
+    }
+    return 'indefinida.png'
    }
+  },
+  methods: {
+    montarEquipe() {
+      let equipe = Object.assign({}, this.$store.state.equipe)
+
+      // somente por mutations que afetam o estado centralizado da aplicação, através do vuex
+      this.$store.commit('adicionarEquipeEmEquipes', equipe)
+    }
   }
 }
 

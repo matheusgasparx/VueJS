@@ -11,46 +11,14 @@ export default new Vuex.Store({
             telefone: '',
             kitDeReanimacao: ''
         },
-        enfermeiros: [
-            { id: 1, nome: 'João', escala: '12x36'},
-            { id: 2, nome: 'Maria', escala: '12x36'},
-            { id: 3, nome: 'Ana', escala: '24x48'},
-            { id: 5, nome: 'José', escala: '24x48'}
-        ],
-        socorristas: [
-            { id: 1, nome: 'Marcos', turno: 'manhã'},
-            { id: 2, nome: 'Felipe', turno: 'manhã'},
-            { id: 3, nome: 'Cláudia', turno: 'tarde'},
-            { id: 4, nome: 'Michele', turno: 'noite'},
-            { id: 5, nome: 'Marcela', turno: 'noite'},
-            { id: 6, nome: 'Astrogildo', turno: 'noite'}
-        ],
-        medicos: [
-            { id: 1, nome: 'André', escala: '12x36'},
-            { id: 2, nome: 'Roberta', escala: '12x36'},
-            { id: 3, nome: 'Carlos', escala: '24x48'},
-            { id: 4, nome: 'Juliana', escala: '24x48'},            
-            { id: 5, nome: 'Italo', escala: '24x48'}
-        ],
+        equipes: [],
+        enfermeiros: [],
+        socorristas: [],
+        medicos: [],
         equipamentos: {
-            carros: [
-                { id: 1, placa: 'ABC-0000' },
-                { id: 2, placa: 'BRA1A11' },
-                { id: 3, placa: 'CBA-1111' },
-                { id: 4, placa: 'ARB2B22' }
-            ],
-            telefones: [
-                { id: 1, telefone: '+55 11 98888-8888' },
-                { id: 2, telefone: '+55 11 97777-7777' },
-                { id: 3, telefone: '+55 11 96666-6666' },
-                { id: 4, telefone: '+55 11 95555-5555' }
-            ],
-            kitsDeReanimacao: [
-                { id: 1, kit: 'K0001' },
-                { id: 2, kit: 'K0002' },
-                { id: 3, kit: 'K0003' },
-                { id: 4, kit: 'K0004' }
-            ]
+            carros: [],
+            telefones: [],
+            kitsDeReanimacao: []
         }
     },
     getters: {
@@ -62,12 +30,12 @@ export default new Vuex.Store({
         },
         
         totalSocorristas: state => state.socorristas.length,
-        totalSocorristasPorTurno: (state, getters) => turno => getters.socorristasPorTurno(turno).length
-        
-        // totalMedicos: state =>  state.medicos.length
+        totalSocorristasPorTurno: (state, getters) => turno => getters.socorristasPorTurno(turno).length,       
+        totalMedicos: state =>  state.medicos.length
     },
     mutations: {
-        setItemEquipe: (state, item) => { // lançado no commit no Item.vue
+        setItemEquipe: (state, item ) => { // lançado no commit no Item.vue
+
             let t = item.tipo
             let d = item.dados
 
@@ -78,6 +46,58 @@ export default new Vuex.Store({
             if(t == 'carros') state.equipe.carro = d.placa
             if(t == 'telefones') state.equipe.telefone = d.telefone
             if(t == 'kits-de-reanimacao') state.equipe.kitDeReanimacao = d.kit
+
+        },
+        setEnfermeiros: (state, payload) => {
+            state.enfermeiros = payload
+        },
+        setSocorristas: (state, payload) => {
+            state.socorristas = payload
+        },
+        setMedicos: (state, payload) => {
+            state.medicos = payload
+        },
+            //  //  //  //  //  //  //
+        setCarros: (state, payload) => {
+            state.equipamentos.carros = payload
+        },
+        setTelefones: (state, { telefones }) => {
+            state.equipamentos.telefones = telefones
+        },
+        setkitsDeReanimacao: (state, payload) => {
+            state.equipamentos.kitsDeReanimacao = payload
+        },
+        adicionarEquipeEmEquipes: (state, payload ) => {
+            state.equipes.push(payload)
+            state.equipe = {}
+            console.log(state.equipes)
         }
-    } 
+    },
+    actions: {
+        fetchEquipamentos(context, { carros, telefones }) {
+            fetch('http://localhost:3001/equipamentos')
+                .then(response => response.json())
+                .then(dados => {
+                    if(carros) context.commit('setCarros', dados.carros)
+                    //processamento assincrono
+                    if(telefones) context.commit('setTelefones', dados)
+                    //processamento assincrono
+                    //diversas regras de negocio
+                    context.commit('setkitsDeReanimacao', dados.kitsDeReanimacao)
+            })
+        },
+        fetchProfissionais(context) {
+            fetch('http://localhost:3001/enfermeiros')
+            .then(response => response.json())
+            .then(dados => context.commit('setEnfermeiros', dados))
+      
+          fetch('http://localhost:3001/socorristas')
+            .then(response => response.json())
+            .then(dados => context.commit('setSocorristas', dados))
+            
+          fetch('http://localhost:3001/medicos')
+            .then(response => response.json())
+            .then(dados => context.commit('setMedicos', dados))
+        }
+    }
 })

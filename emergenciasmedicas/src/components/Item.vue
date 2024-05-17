@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
     name: 'Item',
     props: {
@@ -28,18 +30,40 @@ export default {
         tipo: String
     },
     methods: {
+        //...mapMutations(['setItemEquipe']),
+        ...mapMutations({
+            setItemEquipe: 'setItemEquipe',
+            setItemEquipeComVerificacao: (commit, payload) => {
+                //camada de lógica
+                /*
+                    reserva do item
+                    verificar se o item está disponivel
+                        se sim, marcar no backend que ele esta em sendo utilizado para equipe
+                        se nao, apresentar uma msg de controle indicando que o item ja esta em uso
+                */
+               commit('setItemEquipe', payload)
+            }
+        }),
         adicionarItemEquipe(){
             let item = {
                 tipo: this.tipo,
                 dados: this.dados
-            }
-
+            }                     
+/* 
             this.$store.commit('setItemEquipe', item) // mutations // item = payload
-            this.$store.getters
-            this.$store.state
+            
+            this.$store.commit({
+                type: 'setItemEquipe',
+                item
+            })
+*/               
+            //    this.setItemEquipe(item)
+                this.setItemEquipeComVerificacao(item)
 
-
-        /*
+        },
+                adicionarItemEquipeAbordagemIncorreta(){
+/*
+        }
             //abordagem incorreta
             let t = this.tipo
             let d = this.dados
@@ -51,7 +75,7 @@ export default {
             t == 'carros' ? this.$store.state.equipe.carro = d.placa : null
             t == 'telefones' ? this.$store.state.equipe.telefone = d.telefone : null
             t == 'kits-de-reanimacao' ? this.$store.state.equipe.kitDeReanimacao = d.kit : null
-        */
+*/            
         }
     }
 }

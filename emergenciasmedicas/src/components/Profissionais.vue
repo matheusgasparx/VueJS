@@ -16,7 +16,7 @@
                 </li>
                 <li class="nav-item">
                     <router-link class="nav-link" :to="{ name: 'profissionais', params: { tipo: 'medicos' } }">
-                        Médicos ()
+                        Médicos ({{ $store.getters.totalMedicos }})
                     </router-link>
                 </li>
                 </ul>
